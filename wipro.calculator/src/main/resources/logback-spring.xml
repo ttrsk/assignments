@@ -2,10 +2,8 @@
 <configuration>
   <springProperty scope="context" name="loggingEnabled" source="calculator.logging.enabled"/>
   <if condition='property("loggingEnabled").equals("true")'>
-    <else>
-      <root level="OFF"/>
-    </else>
     <then>
+      <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
       <appender class="ch.qos.logback.core.ConsoleAppender" name="CONSOLE">
         <encoder>
           <charset>${CONSOLE_LOG_CHARSET}</charset>
@@ -22,10 +20,12 @@
           Caveat - will not work for any tools that redirect output, including
           Maven Spring Boot plugin
           -->
-      <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
       <root level="INFO">
         <appender-ref ref="CONSOLE"/>
       </root>
     </then>
+    <else>
+      <root level="OFF"/>
+    </else>
   </if>
 </configuration>

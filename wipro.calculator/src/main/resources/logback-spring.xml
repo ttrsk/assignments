@@ -28,5 +28,4 @@
       </root>
     </then>
   </if>
-  <springProperty name="loggingEnabled" scope="context" source="calculator.logging.enabled"/>
 </configuration>

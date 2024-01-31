@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <springProperty scope="context" name="loggingEnabled" source="calculator.logging.enabled"/>
+  <if condition='property("loggingEnabled").equals("true")'>
+    <else>
+      <root level="OFF"/>
+    </else>
+    <then>
+      <appender class="ch.qos.logback.core.ConsoleAppender" name="CONSOLE">
+        <encoder>
+          <charset>${CONSOLE_LOG_CHARSET}</charset>
+          <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+          <level>${CONSOLE_LOG_THRESHOLD}</level>
+        </filter>
+        <target>System.err</target>
+      </appender>
+      <!--
+          Override default appender from org/springframework/boot/logging/logback/console-appender.xml
+          to log to stderr.
+          Caveat - will not work for any tools that redirect output, including
+          Maven Spring Boot plugin
+          -->
+      <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+      <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+      </root>
+    </then>
+  </if>
+  <springProperty name="loggingEnabled" scope="context" source="calculator.logging.enabled"/>
+</configuration>

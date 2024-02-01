@@ -2,6 +2,7 @@ package tatarskiy.assignments.wipro.calculator.model;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Objects;
 import java.util.OptionalDouble;
 
 public record AggregationResult(String instrument, OptionalDouble result)
@@ -16,6 +17,11 @@ public record AggregationResult(String instrument, OptionalDouble result)
       return new DecimalFormat("#.##########");
     }
   };
+
+  public AggregationResult {
+    Objects.requireNonNull(instrument);
+    Objects.requireNonNull(result);
+  }
 
   @Override
   public int compareTo(AggregationResult o) {

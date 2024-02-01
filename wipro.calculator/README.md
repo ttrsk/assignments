@@ -1,16 +1,14 @@
-Price update calculator - a Wipro assignment
-============================================
+# Price update calculator - a Wipro assignment
 
-Building
---------
+## Building
+
 TBD
 
-Runnning
---------
+## Running
+
 TBD
 
-Design and implementation details
----------------------------------
+## Design and implementation details
 
 ### General design considerations
 

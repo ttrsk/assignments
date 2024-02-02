@@ -1,9 +1,5 @@
 # Price aggregation calculator - a W-company assignment
 
-## TODO
-
-Enable H2 tcp server
-
 ## Building
 
 In order to build calculator you should have JDK 17+ installed and  `JAVA_HOME` environment variable
@@ -48,6 +44,15 @@ mvnw spring-boot:run -Dspring-boot.run.arguments=<comma_separated_arg_list>
 **NOTE:** You will need to meet build prerequisites to use Maven Wrapper (JDK installed
 and `JAVA_HOME`
 set)
+
+### Modifying prices
+
+To allow editing `INSTRUMENT_PRICE_MODIFIER` table calculator application exposes H2 database as
+a tcp server running at `jdbc:h2:tcp://localhost:9090/mem:multipliers`. Username is `sa` and
+password is `password`.
+
+To save some time connecting to the TCP server use `--pause` parameter to wait before computation
+starts.
 
 ## Design and implementation details
 

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>tatarskiy.assignments</groupId>
 	<artifactId>wipro.calculator</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0</version>
 	<name>wipro.calculator</name>
 	<description>Test Assignment for tatarskiy.ch@gmail.com</description>
 	<properties>
@@ -47,6 +47,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<classifier>exec</classifier>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

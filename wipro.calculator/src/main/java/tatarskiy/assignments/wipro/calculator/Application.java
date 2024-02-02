@@ -3,13 +3,16 @@ package tatarskiy.assignments.wipro.calculator;
 import java.io.IOException;
 import java.time.YearMonth;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.env.Environment;
 import tatarskiy.assignments.wipro.calculator.adjustments.AdjustmentDataProvider;
 import tatarskiy.assignments.wipro.calculator.adjustments.impl.H2AdjustmentDataProvider;
 import tatarskiy.assignments.wipro.calculator.adjustments.repository.PriceModifierRepository;
@@ -30,6 +33,15 @@ public class Application implements CommandLineRunner {
   @Autowired
   @Lazy
   private CalculatorDriver calculatorDriver;
+
+  @Autowired
+  private Environment environment;
+
+  @Value("${input:#{null}}")
+  private String inputPath;
+
+  @Value("${pause:0}")
+  private int pauseSeconds;
 
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
@@ -59,15 +71,27 @@ public class Application implements CommandLineRunner {
 
   @Override
   public void run(String... args) {
-    // TODO: parse command line args
-    // --silent => calculator.parallel =>
-    // --pause=<sec>
-    // --no_parallel => calculator.parallel => false
-    // --no_h2_tcpserver => calculator
-    // --h2_tcpserver_port=<h2_tcp_port>
-    // --input=<input_file_path>
+    if (inputPath == null || inputPath.isBlank()) {
+      output.errOutput("Required parameter missing: --input must be non-blank file path");
+      output.errOutput("Usage:");
+      output.errOutput(
+          "java -jar target/wipro.calculator-0.1.0-exec.jar --input=<input_file_path> [<other_options>]");
+      output.errOutput("For other options check README.md");
+      return;
+    }
+
+    if (pauseSeconds > 0) {
+      try {
+        output.userMessage("Execution will pause for " + pauseSeconds + " second(s)");
+        TimeUnit.SECONDS.sleep(pauseSeconds);
+      } catch (InterruptedException e) {
+        output.errOutput("Interrupted");
+        return;
+      }
+    }
+
     try {
-      CalculationResults results = calculatorDriver.runCalculation("example_input.txt");
+      CalculationResults results = calculatorDriver.runCalculation(inputPath);
       output.userMessage("Calculations complete, aggregate values are:");
       for (var aggregate : results.aggregatedValues()) {
         output.output(aggregate.getUserString());

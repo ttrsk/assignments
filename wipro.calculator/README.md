@@ -1,19 +1,53 @@
-# Price update calculator - a W-company assignment
+# Price aggregation calculator - a W-company assignment
 
 ## TODO
-* Add aggregations from H2 database + caching.
-* Command-line parsing.
-* Update documentation.
+
+Enable H2 tcp server
 
 ## Building
 
-TBD
+In order to build calculator you should have JDK 17+ installed and  `JAVA_HOME` environment variable
+should point to that JDK.
+
+Project uses Maven Wrapper.
+
+To create executable jar run `./mvnw package` command.
 
 ## Running
 
-### Directly
+In order to run calculator you should have Java Runtime Environment 17+ installed and `PATH`
+environment variable should point to `java` executable.
 
-### Via mvnw (Maven wrappers)
+### Running Jar Directly
+
+After building executable jar you can launch it using following command:
+
+```commandline
+    java -jar target/wipro.calculator-0.1.0-exec.jar --input=<input_file_path> [<optional_args>]
+```
+
+Where arguments are following:
+
+* **--input=<input_path>** - path to input file. Required parameter.
+* **--calculator.silent=true** - suppress user messages. Useful for batch files.
+* **--calculator.parallel=false** - Disable parallel data processing.
+* **--pause=<N>** - Insert pause of N seconds before calculation. Useful to attach to price modifier
+  database.
+* **--calculator.logging.enabled=true** - Enable Spring logging. Useful for debugging.
+
+### Via mvnw (Maven wrapper)
+
+You can also use mvnw to run application. To do that use `mvnw spring-boot:run` command
+with `-Dspring-boot.run.arguments` parameter set to a comma-separated list of all calculator
+arguments.
+
+```
+mvnw spring-boot:run -Dspring-boot.run.arguments=<comma_separated_arg_list>
+```
+
+**NOTE:** You will need to meet build prerequisites to use Maven Wrapper (JDK installed
+and `JAVA_HOME`
+set)
 
 ## Design and implementation details
 
@@ -42,8 +76,8 @@ TBD
    for the position and saves some of the implementation time.
 1. We consider instrument price to be double.
    Rationale:
-   * Numbers have up to 9 decimal digits, this is more than fixed point price usually has.
-   * Multiplier is also double.
+    * Numbers have up to 9 decimal digits, this is more than fixed point price usually has.
+    * Multiplier is also double.
 1. Aggregate output values are limited to 10 decimal points (maximum precision in the sample input
    file), this allows cleaner output.
 1. Requirements say 'Please assume that the values in the INSTRUMENT_PRICE_MODIFIER table can change
@@ -51,4 +85,3 @@ TBD
    for 5 seconds.
    Rationale: although text does not say exactly that there will be certain latency for
 1. It is ok to fail fast on incorrectly formatted data printing error message.
-

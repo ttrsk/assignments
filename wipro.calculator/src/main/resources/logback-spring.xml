@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+  <springProperty name="loggingEnabled" scope="context" source="calculator.logging.enabled"/>
   <if condition='property("loggingEnabled").equals("true")'>
     <else>
       <root level="OFF"/>
@@ -27,5 +28,4 @@
       </root>
     </then>
   </if>
-  <springProperty name="loggingEnabled" scope="context" source="calculator.logging.enabled"/>
 </configuration>

@@ -53,6 +53,14 @@ class ConsoleOutputTest {
     assertOutput("", "ERROR: " + errorMessage + LINESEP, () -> output.error(errorMessage));
   }
 
+  @ParameterizedTest
+  @ValueSource(booleans = {true, false})
+  void Should_OutputRawMessageToStderr_When_ErrOutputIsCalled(boolean silent) {
+    final ConsoleOutput output = new ConsoleOutput(silent);
+    final String errorMessage = "Sample error message";
+    assertOutput("", errorMessage + LINESEP, () -> output.errOutput(errorMessage));
+  }
+
   @Test
   void Should_OutputUserMessageToStdout_When_SilentIsFalse() {
     final ConsoleOutput output = new ConsoleOutput(false);

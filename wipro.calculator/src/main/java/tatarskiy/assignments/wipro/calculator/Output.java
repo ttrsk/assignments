@@ -13,4 +13,6 @@ public interface Output {
 
   // Display error message with exception details
   public void error(String message, Throwable ex);
+
+  public void errOutput(String message);
 }

@@ -29,6 +29,11 @@ public class ConsoleOutput implements Output {
   }
 
   @Override
+  public void errOutput(String message) {
+    System.err.println(message);
+  }
+
+  @Override
   public void error(String message) {
     System.err.println("ERROR: " + message);
   }

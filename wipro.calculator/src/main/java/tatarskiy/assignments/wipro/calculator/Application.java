@@ -54,8 +54,7 @@ public class Application implements CommandLineRunner {
 
   @Bean
   CalculatorEngine calculatorEngine(@Autowired CalculatorConfig calculatorConfig) {
-    // TODO: filter working days
-    return new CalculatorEngineImpl(calculatorConfig, x -> true);
+    return new CalculatorEngineImpl(calculatorConfig, WorkingDayPredicate.instance());
   }
 
   @Override

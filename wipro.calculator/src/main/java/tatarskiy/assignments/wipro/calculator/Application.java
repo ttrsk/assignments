@@ -7,14 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import tatarskiy.assignments.wipro.calculator.adjustments.AdjustmentDataProvider;
+import tatarskiy.assignments.wipro.calculator.adjustments.impl.H2AdjustmentDataProvider;
+import tatarskiy.assignments.wipro.calculator.adjustments.repository.PriceModifierRepository;
 import tatarskiy.assignments.wipro.calculator.engine.CalculatorEngine;
 import tatarskiy.assignments.wipro.calculator.engine.config.CalculatorConfig;
 import tatarskiy.assignments.wipro.calculator.engine.impl.CalculatorEngineImpl;
 
 @SpringBootApplication
+@EnableCaching
 public class Application implements CommandLineRunner {
 
   // Need to defer bean creation to when command line args are parsed and injected to
@@ -44,8 +48,8 @@ public class Application implements CommandLineRunner {
   }
 
   @Bean
-  AdjustmentDataProvider adjustmentDataProvider() {
-    return AdjustmentDataProvider.NO_OP_PROVIDER;
+  AdjustmentDataProvider adjustmentDataProvider(PriceModifierRepository repository) {
+    return new H2AdjustmentDataProvider(repository);
   }
 
   @Bean

@@ -8,7 +8,7 @@ import tatarskiy.assignments.wipro.calculator.model.InstrumentPriceUpdate;
 // Aggregation rules are:
 // - Specific aggregation algorithm executed by accept(InstrumentPriceUpdate)
 // - Method to get aggregate value
-public interface PriceAggregate
+public interface PriceAggregator
     extends Consumer<InstrumentPriceUpdate> {
 
   OptionalDouble getAggregateValue();

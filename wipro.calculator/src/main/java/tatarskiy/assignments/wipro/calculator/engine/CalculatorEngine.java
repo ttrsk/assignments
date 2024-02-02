@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 import tatarskiy.assignments.wipro.calculator.model.AggregationResult;
 import tatarskiy.assignments.wipro.calculator.model.InstrumentPriceUpdate;
 
+// Processes data and calculates
 public interface CalculatorEngine {
 
   // Calculates aggregate values for instrument price updates.

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.OptionalDouble;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import tatarskiy.assignments.wipro.calculator.engine.aggregation.PriceAggregate;
+import tatarskiy.assignments.wipro.calculator.engine.aggregation.PriceAggregator;
 
 public class TestUtils {
 
@@ -31,7 +31,7 @@ public class TestUtils {
     return sampleUpdates(TEST_INSTRUMENT, SAMPLE_DATE, values);
   }
 
-  public static OptionalDouble aggregateAndGet(PriceAggregate aggregator,
+  public static OptionalDouble aggregateAndGet(PriceAggregator aggregator,
       Stream<InstrumentPriceUpdate> updates) {
     updates.forEach(aggregator::accept);
     return aggregator.getAggregateValue();

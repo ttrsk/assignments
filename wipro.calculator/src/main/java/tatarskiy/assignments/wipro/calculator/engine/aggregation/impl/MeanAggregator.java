@@ -3,10 +3,10 @@ package tatarskiy.assignments.wipro.calculator.engine.aggregation.impl;
 import java.util.OptionalDouble;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import tatarskiy.assignments.wipro.calculator.engine.aggregation.PriceAggregate;
+import tatarskiy.assignments.wipro.calculator.engine.aggregation.PriceAggregator;
 import tatarskiy.assignments.wipro.calculator.model.InstrumentPriceUpdate;
 
-public final class MeanAggregator implements PriceAggregate {
+public final class MeanAggregator implements PriceAggregator {
 
   // simple concurrent implementation that uses locks to make concurrent changes atomic.
   Lock lock = new ReentrantLock();

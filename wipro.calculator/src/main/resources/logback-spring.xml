@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-  <springProperty scope="context" name="loggingEnabled" source="calculator.logging.enabled"/>
   <if condition='property("loggingEnabled").equals("true")'>
+    <else>
+      <root level="OFF"/>
+    </else>
     <then>
-      <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
       <appender class="ch.qos.logback.core.ConsoleAppender" name="CONSOLE">
         <encoder>
           <charset>${CONSOLE_LOG_CHARSET}</charset>
@@ -14,6 +15,7 @@
         </filter>
         <target>System.err</target>
       </appender>
+      <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
       <!--
           Override default appender from org/springframework/boot/logging/logback/console-appender.xml
           to log to stderr.
@@ -24,8 +26,6 @@
         <appender-ref ref="CONSOLE"/>
       </root>
     </then>
-    <else>
-      <root level="OFF"/>
-    </else>
   </if>
+  <springProperty name="loggingEnabled" scope="context" source="calculator.logging.enabled"/>
 </configuration>

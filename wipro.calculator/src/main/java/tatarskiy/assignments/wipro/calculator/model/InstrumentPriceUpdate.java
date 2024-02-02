@@ -7,6 +7,9 @@ import java.util.OptionalDouble;
 
 public record InstrumentPriceUpdate(String instrument, LocalDate date, double price) {
 
+  private static final DateTimeFormatter DD_MMM_YYYY_FORMATTER = DateTimeFormatter.ofPattern(
+      "dd-MMM-yyyy");
+
   public InstrumentPriceUpdate {
     Objects.requireNonNull(instrument, "Instrument cannot be null");
     Objects.requireNonNull(date, "Date cannot be null");
@@ -17,9 +20,6 @@ public record InstrumentPriceUpdate(String instrument, LocalDate date, double pr
       throw new IllegalArgumentException("Instrument value cannot be blank");
     }
   }
-
-  private static final DateTimeFormatter DD_MMM_YYYY_FORMATTER = DateTimeFormatter.ofPattern(
-      "dd-MMM-yyyy");
 
   public static InstrumentPriceUpdate parse(String line) {
     Objects.requireNonNull(line, "String value cannot be null");

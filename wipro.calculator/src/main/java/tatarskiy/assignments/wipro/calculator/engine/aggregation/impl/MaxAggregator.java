@@ -2,10 +2,10 @@ package tatarskiy.assignments.wipro.calculator.engine.aggregation.impl;
 
 import java.util.OptionalDouble;
 import java.util.concurrent.atomic.AtomicLong;
-import tatarskiy.assignments.wipro.calculator.engine.aggregation.PriceAggregate;
+import tatarskiy.assignments.wipro.calculator.engine.aggregation.PriceAggregator;
 import tatarskiy.assignments.wipro.calculator.model.InstrumentPriceUpdate;
 
-public class MaxAggregator implements PriceAggregate {
+public class MaxAggregator implements PriceAggregator {
 
   // There is no atomic doubles, so we emulate them storing long bit data.
   // All double values have bit representation of 0x<sign><exponent><mantissa>, so:

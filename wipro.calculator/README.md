@@ -90,3 +90,8 @@ starts.
    for 5 seconds.
    Rationale: although text does not say exactly that there will be certain latency for
 1. It is ok to fail fast on incorrectly formatted data printing error message.
+
+## Benchmarks
+
+Parallel run on 4.2GB file (118M lines, 8000 instruments) on Intel 1260P processor over SSD disk
+with Java heap limited to 2GiB takes 35-55 seconds. 
